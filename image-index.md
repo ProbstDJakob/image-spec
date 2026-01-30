@@ -57,12 +57,12 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
     - **`architecture`** *string*
 
       This REQUIRED property specifies the CPU architecture.
-      Image indexes SHOULD use, and implementations SHOULD understand, values listed in the Go Language document for [`GOARCH`][go-environment2].
+      Image indexes SHOULD use, and implementations SHOULD understand, `architecture` values listed in the [Supported Platforms](#supported-platforms) table.
 
     - **`os`** *string*
 
       This REQUIRED property specifies the operating system.
-      Image indexes SHOULD use, and implementations SHOULD understand, values listed in the Go Language document for [`GOOS`][go-environment2].
+      Image indexes SHOULD use, and implementations SHOULD understand, `os` values listed in the [Supported Platforms](#supported-platforms) table.
 
     - **`os.version`** *string*
 
@@ -82,7 +82,7 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
     - **`variant`** *string*
 
       This OPTIONAL property specifies the variant of the CPU.
-      Image indexes SHOULD use, and implementations SHOULD understand, `variant` values listed in the [Platform Variants](#platform-variants) table.
+      Image indexes SHOULD use, and implementations SHOULD understand, `variant` values listed in the [Supported Platforms](#supported-platforms) table.
 
     - **`features`** *array of strings*
 
@@ -102,18 +102,27 @@ For the media type(s) that this document is compatible with, see the [matrix][ma
 
     See [Pre-Defined Annotation Keys](annotations.md#pre-defined-annotation-keys).
 
-## Platform Variants
+## Supported Platforms
 
-When the variant of the CPU is not listed in the table, values are implementation-defined and SHOULD be submitted to this specification for standardization.
+When the combination of architecture, variant, and os is not listed in the table, values are implementation-defined and SHOULD be submitted to this specification for standardization.
 These values SHOULD match (or be similar to) their analog listed in [the Go Language document][go-environment2].
 
-| ISA/ABI    | `architecture` | `variant`             | Go analog   |
-|------------|----------------|-----------------------|-------------|
-| ARM 32-bit | `arm`          | `v6`, `v7`, `v8`      | `GOARM`     |
-| ARM 64-bit | `arm64`        | `v8`, `v8.1`, …       | `GOARM64`   |
-| POWER8+    | `ppc64le`      | `power8`, `power9`, … | `GOPPC64`   |
-| RISC-V     | `riscv64`      | `rva20u64`, …         | `GORISCV64` |
-| x86-64     | `amd64`        | `v1`, `v2`, `v3`, …   | `GOAMD64`   |
+| ISA/ABI                   | `architecture` | `variant`                          | `os`                                                                                                                |
+|---------------------------|----------------|------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| x86                       | `386`          | `softfloat`, `sse2`                | `android`, `freebsd`, `linux`, `netbsd`, `openbsd`, `plan9`, `windows`                                              |
+| x86-64                    | `amd64`        | `v1`, `v2`, `v3`, `v4`             | `android`, `darwin`, `dragonfly`, `freebsd`, `illumos`, `linux`, `netbsd`, `openbsd`, `plan9`, `solaris`, `windows` |
+| ARM 32-bit                | `arm`          | `v6`, `v7`, `v8`                   | `android`, `freebsd`, `linux`, `netbsd`, `openbsd`, `plan9`, `windows`                                              |
+| ARM 64-bit                | `arm64`        | `v8`, `v8.1`                       | `android`, `darwin`, `ios`, `linux`, `openbsd`, `windows`                                                           |
+| LoongArch 64-bit          | `loong64`      |                                    | `linux`                                                                                                             |
+| MIPS 32-bit big endian    | `mips`         | `hardfloat`, `softfloat`           | `linux`                                                                                                             |
+| MIPS 64-bit big endian    | `mips64`       | `hardfloat`, `softfloat`           | `linux`                                                                                                             |
+| MIPS 64-bit little endian | `mips64le`     | `hardfloat`, `softfloat`           | `linux`                                                                                                             |
+| MIPS 32-bit little endian | `mipsle`       | `hardfloat`, `softfloat`           | `linux`                                                                                                             |
+| POWER8+ big endian        | `ppc64`        | `power8`, `power9`                 | `aix`, `linux`                                                                                                      |
+| POWER8+ little endian     | `ppc64le`      | `power8`, `power9`                 | `linux`                                                                                                             |
+| RISC-V                    | `riscv64`      | `rva20u64`, `rva22u64`, `rva23u64` | `linux`                                                                                                             |
+| IBM z/Architecture        | `s390x`        |                                    | `linux`                                                                                                             |
+| WebAssembly               | `wasm`         | `satconv`, `signext`               | `js`, `wasip1`                                                                                                      |
 
 ## Example Image Index
 
